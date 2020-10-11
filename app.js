@@ -1,7 +1,7 @@
 // calculator functions
 // add
 function add(num1, num2) {
-    return num1 + num2;
+    return parseInt(num1) + parseInt(num2);
 }
 
 // subtract
@@ -21,17 +21,14 @@ function divide(num1, num2) {
 
 // operator function
 function operate(operator, num1, num2) {
-    return operator(num1, num2);
+    return window[operator](num1, num2);
 }
 
-var displayValue = "";
-
 function enterDisplay(val) {
-    var display = document.getElementById("calcDisplay");
     display.innerText = val;
 }
 
-
+var displayValue = "";
 let num1 = "";
 let num2 = "";
 let result = 0;
@@ -40,78 +37,137 @@ let operator = null;
 function enterNumber(num) {
     if (!operator) {
         num1 += num;
+        displayValue = num1;
     }
     // when do we enter number 2? -> after operator
     if (operator) {
         num2 += num;
+        displayValue = num2;
     }
-
+    enterDisplay(displayValue);
 }
 
+function enterOperator(op) {
+    operator = op;
+
+    if (result) {
+        num1 = result.toString();
+        num2 = "";
+    }
+    else if (num1 && num2) {
+        calculateResult(operator, num1, num2);
+        num1 = result.toString();
+        num2 = "";
+    }
+}
+
+function calculateResult(operator, num1, num2) {
+    if (!operator) {
+        return;
+    }
+
+    if (!num2) {
+        num2 = displayValue;
+    }
+    result = operate(operator, num1, num2);
+    displayValue = result;
+    enterDisplay(displayValue);
+
+    num1 = "";
+    num2 = "";
+    operator = null;
+}
+
+// operator button DOM 
+var btnEquals = document.getElementById("btnEquals");
 var btnMultiply = document.getElementById("btnMultiply");
 var btnDivide = document.getElementById("btnDivide");
 var btnSubtact = document.getElementById("btnSubtract");
 var btnAdd = document.getElementById("btnAdd");
 
-var btnEquals = document.getElementById("btnEquals");
-
-btnEquals.addEventListener(() => {
-    operate(operator, num1, num2);
+// operator button events 
+btnEquals.addEventListener('click', () => {
+    calculateResult(operator, num1, num2);
 })
 
-btnMultiply.addEventListener(() => {
-    operator = "multiply";
+btnMultiply.addEventListener('click', () => {
+    enterOperator("multiply");
 });
 
-btnDivide.addEventListener(() => {
-    operator = "divide";
+btnDivide.addEventListener('click', () => {
+    enterOperator("divide");
 });
 
-btnAdd.addEventListener(() => {
-    operator = "add";
+btnAdd.addEventListener('click', () => {
+    enterOperator("add");
 });
 
-btnSubtact.addEventListener(() => {
-    operator = "subtact";
+btnSubtact.addEventListener('click', () => {
+    enterOperator("subtract");
 });
 
-btnOne.addEventListener(() => {
+// number button DOM
+let btnOne = document.getElementById("btn1");
+let btnTwo = document.getElementById("btn2");
+let btnThree = document.getElementById("btn3");
+let btnFour = document.getElementById("btn4");
+let btnFive = document.getElementById("btn5");
+let btnSix = document.getElementById("btn6");
+let btnSeven = document.getElementById("btn7");
+let btnEight = document.getElementById("btn8");
+let btnNine = document.getElementById("btn9");
+let btnZero = document.getElementById("btn0");
+
+// number button events
+btnOne.addEventListener('click', () => {
     enterNumber('1');
 });
 
-btnTwo.addEventListener(() => {
+btnTwo.addEventListener('click', () => {
     enterNumber('2');
 });
 
-btnThree.addEventListener(() => {
+btnThree.addEventListener('click', () => {
     enterNumber('3');
 });
 
-btnFour.addEventListener(() => {
+btnFour.addEventListener('click', () => {
     enterNumber('4');
 });
 
-btnFive.addEventListener(() => {
+btnFive.addEventListener('click', () => {
     enterNumber('5');
 });
 
-btnSix.addEventListener(() => {
+btnSix.addEventListener('click', () => {
     enterNumber('6');
 });
 
-btnSeven.addEventListener(() => {
+btnSeven.addEventListener('click', () => {
     enterNumber('7');
 });
 
-btnEight.addEventListener(() => {
+btnEight.addEventListener('click', () => {
     enterNumber('8');
 });
 
-btnNine.addEventListener(() => {
+btnNine.addEventListener('click', () => {
     enterNumber('9');
 });
 
-btnZero.addEventListener(() => {
+btnZero.addEventListener('click', () => {
     enterNumber('0');
 });
 
+// misc DOM
+let clearBtn = document.getElementById("btnClear");
+var display = document.getElementById("calcDisplay");
+
+// misc events
+clearBtn.addEventListener('click', () => {
+    num1 = "";
+    num2 = "";
+    result = 0;
+    operator = null;
+    enterDisplay("0");
+})
