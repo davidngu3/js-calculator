@@ -1,7 +1,14 @@
+// global variables
+let displayValue = "";
+let num1 = "";
+let num2 = "";
+let result = 0;
+let operator = null;
+
 // calculator functions
 // add
 function add(num1, num2) {
-    return parseInt(num1) + parseInt(num2);
+    return parseFloat(num1) + parseFloat(num2);
 }
 
 // subtract
@@ -16,6 +23,10 @@ function multiply(num1, num2) {
 
 // divide
 function divide(num1, num2) {
+    if (num2 == 0) {
+        alert("Don't even think about it")
+        return 404
+    }
     return num1 / num2;
 }
 
@@ -25,14 +36,14 @@ function operate(operator, num1, num2) {
 }
 
 function enterDisplay(val) {
-    display.innerText = val;
+    if (val == '.') {
+        display.innerText = '0.';
+        return;
+    }
+    roundedVal = Math.round(val * Math.pow(10, 8)) / Math.pow(10, 8) // round to 8 decimal places
+    if (val[val.length-1] == '.') roundedVal += '.';
+    display.innerText = roundedVal;
 }
-
-var displayValue = "";
-let num1 = "";
-let num2 = "";
-let result = 0;
-let operator = null;
 
 function enterNumber(num) {
     if (!operator) {
@@ -48,21 +59,20 @@ function enterNumber(num) {
 }
 
 function enterOperator(op) {
-    operator = op;
+    if (!num1) {
+        num1 = displayValue.toString();
+    }
 
-    if (result) {
+    if (num1 && num2) {
+        calculateResult();
         num1 = result.toString();
         num2 = "";
     }
-    else if (num1 && num2) {
-        calculateResult(operator, num1, num2);
-        num1 = result.toString();
-        num2 = "";
-    }
+    operator = op;
 }
 
-function calculateResult(operator, num1, num2) {
-    if (!operator) {
+function calculateResult() {
+    if (!operator || (!num1 && !num2)) {
         return;
     }
 
@@ -70,7 +80,7 @@ function calculateResult(operator, num1, num2) {
         num2 = displayValue;
     }
     result = operate(operator, num1, num2);
-    displayValue = result;
+    displayValue = result.toString();
     enterDisplay(displayValue);
 
     num1 = "";
@@ -87,7 +97,7 @@ var btnAdd = document.getElementById("btnAdd");
 
 // operator button events 
 btnEquals.addEventListener('click', () => {
-    calculateResult(operator, num1, num2);
+    calculateResult();
 })
 
 btnMultiply.addEventListener('click', () => {
@@ -117,8 +127,15 @@ let btnSeven = document.getElementById("btn7");
 let btnEight = document.getElementById("btn8");
 let btnNine = document.getElementById("btn9");
 let btnZero = document.getElementById("btn0");
+let btnDec = document.getElementById("btnDec");
 
 // number button events
+btnDec.addEventListener('click', () => {
+    if (!displayValue.includes('.')) {
+        enterNumber('.');
+    }
+});
+
 btnOne.addEventListener('click', () => {
     enterNumber('1');
 });
