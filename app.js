@@ -46,6 +46,9 @@ function enterDisplay(val) {
 }
 
 function enterNumber(num) {
+    if (result) {
+        result = 0;
+    }
     if (!operator) {
         num1 += num;
         displayValue = num1;
@@ -178,7 +181,8 @@ btnZero.addEventListener('click', () => {
 
 // misc DOM
 let clearBtn = document.getElementById("btnClear");
-var display = document.getElementById("calcDisplay");
+let display = document.getElementById("calcDisplay");
+let backspace = document.getElementById("btnBack");
 
 // misc events
 clearBtn.addEventListener('click', () => {
@@ -187,4 +191,25 @@ clearBtn.addEventListener('click', () => {
     result = 0;
     operator = null;
     enterDisplay("0");
+})
+
+backspace.addEventListener('click', () => {
+    if (result) {
+        num1 = result.toString();
+        num1 = num1.substring(0, num1.length - 1);
+        displayValue = num1;
+        enterDisplay(num1);
+        result = 0;
+    }
+    else if (!operator) {
+        num1 = num1.substring(0, num1.length - 1);
+        displayValue = num1;
+        enterDisplay(num1);
+    }
+    else {
+        num2 = num2.substring(0, num2.length - 1);
+        displayValue = num2;
+        enterDisplay(num2);
+    }
+    
 })
