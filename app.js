@@ -80,7 +80,7 @@ function calculateResult() {
     }
 
     if (!num2) {
-        num2 = displayValue;
+        num2 = displayValue == "" ? 0 : displayValue;
     }
     result = operate(operator, num1, num2);
     displayValue = result.toString();
@@ -201,7 +201,7 @@ backspace.addEventListener('click', () => {
         enterDisplay(num1);
         result = 0;
     }
-    else if (!operator) {
+    else if (!num2) {
         num1 = num1.substring(0, num1.length - 1);
         displayValue = num1;
         enterDisplay(num1);
