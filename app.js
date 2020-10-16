@@ -131,12 +131,32 @@ let btnEight = document.getElementById("btn8");
 let btnNine = document.getElementById("btn9");
 let btnZero = document.getElementById("btn0");
 let btnDec = document.getElementById("btnDec");
+let btnNeg = document.getElementById("btnNeg");
 
 // number button events
 btnDec.addEventListener('click', () => {
     if (!displayValue.includes('.')) {
         enterNumber('.');
     }
+});
+
+btnNeg.addEventListener('click', () => {
+    if (result) {
+        num1 = result;
+        num1 = (-parseFloat(num1)).toString();
+        displayValue = num1;
+        result = 0;
+    }
+    else if (!operator) {
+        num1 = (-parseFloat(num1)).toString();
+        displayValue = num1;
+    }
+    // when do we enter number 2? -> after operator
+    else if (operator) {
+        num2 = (-parseInt(num2)).toString();
+        displayValue = num2;
+    }
+    enterDisplay(displayValue);
 });
 
 btnOne.addEventListener('click', () => {
