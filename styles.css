@@ -1,3 +1,7 @@
+* {
+    font-family: 'Play', sans-serif;
+}
+
 #calcBody {
     display: grid;
     grid-template-columns: repeat(4, 25%);
@@ -14,9 +18,19 @@
 }
 
 #calcBg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 340px;
     height: 380px;
-    background: indigo;
+    background: #140e36;
+}
+
+button {
+    font-size: 2em;
+    color: #e3d5c1;
+    background: #373a4f;
+    border: 1px solid #7299b5;
 }
 
 #btn0 {
@@ -96,7 +110,8 @@
 }
 
 #displayBg {
-    background-color: seashell;
+    background-color: #2e2e2e;
+    border: 1px solid #7299b5;
     position: relative;
     grid-area: disp;
 }
@@ -106,4 +121,6 @@
     bottom: 5px;
     right: 5px;
     font-size: 5vh;
+    font-family: 'Orbitron', sans-serif;
+    color: #76fc5b;
 }
