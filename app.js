@@ -36,6 +36,15 @@ function operate(operator, num1, num2) {
 }
 
 function enterDisplay(val) {
+    if (val.length > 8) {
+        display.innerText = "OVERFLOW";
+        num1 = "";
+        num2 = "";
+        result = 0;
+        operator = null;
+        return;
+    }
+
     if (val == '.') {
         display.innerText = '0.';
         return;

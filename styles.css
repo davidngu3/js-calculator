@@ -17,20 +17,45 @@
     height: 360px;
 }
 
+body {
+    background-color: #242424;
+
+}
+h1 {
+    position: relative;
+    display: inline-block;
+    font-size: 2.2em;
+    color: #76fc5b
+}
+
 #calcBg {
+    position: relative;
+    margin-top: 3vh;
+    margin-left: 6vw;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 340px;
     height: 380px;
-    background: #140e36;
+    background: #333333;
+    border: 1px solid #7299b5;
+    border-radius: 20px;
 }
 
 button {
     font-size: 2em;
     color: #e3d5c1;
     background: #373a4f;
-    border: 1px solid #7299b5;
+    border: 1px solid #bdbdbd;
+    outline: none;
+}
+
+button:active {
+    background: #85749e;
+}
+
+button:hover {
+    font-size: 2.5em;
 }
 
 #btn0 {
@@ -111,7 +136,7 @@ button {
 
 #displayBg {
     background-color: #2e2e2e;
-    border: 1px solid #7299b5;
+    border: 1px solid #808080;
     position: relative;
     grid-area: disp;
 }
